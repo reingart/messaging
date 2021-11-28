@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+#    timeout-minutes: 1
 
     steps:
     - uses: actions/checkout@v2
@@ -37,8 +37,8 @@ jobs:
     - name: Test MQTT async
       run: python mqtt_async.py
 
-    - name: wait the subscriber
-      run: while ! wc -l /tmp/msg_log.txt  | grep 200000 ; do sleep 1 ; done
+#    - name: wait the subscriber
+#      run: while ! wc -l /tmp/msg_log.txt  | grep 200000 ; do sleep 1 ; done
 
     - uses: actions/upload-artifact@v2
       with:
