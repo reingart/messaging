@@ -28,7 +28,18 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+    - name: subscriber log
+      run: mosquitto_sub -t '#' -q 2 -F '%I %t %m %l' > /tmp/msg_log.txt &
+
     - name: Test MQTT sync
       run: python mqtt_sync.py
     - name: Test MQTT async
       run: python mqtt_async.py
+
+    - name: wait the subscriber
+      run: while ! wc -l /tmp/msg_log.txt  | grep 200000 ; do sleep 1 ; done
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: subscriber_log.txt
+        path: /tmp/msg_log.txt
