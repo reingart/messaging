@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: install MQTT & AMQP brokers
-      run: sudo apt-get install -y mosquitto mosquitto-clients libmosquitto-dev rabbitmq-server
+      run: sudo apt-get install -y mosquitto mosquitto-clients libmosquitto-dev rabbitmq-server redis
     - name: configure broker
       run: sudo cp mosquitto.conf /etc/mosquitto/conf.d/
     - name: restart broker
@@ -47,6 +47,9 @@ jobs:
 
     - name: Test AMQP sync
       run: python amqp_sync.py
+
+    - name: Test REDIS async
+      run: python redis_async.py
 
     - uses: actions/upload-artifact@v2
       with:

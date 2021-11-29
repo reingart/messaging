@@ -2,4 +2,5 @@ paho-mqtt==1.5.1
 gmqtt==0.6.11
 pika==1.2.0
 redis==3.5.3
+aioredis==2.0.0
 uvloop==0.16.0
