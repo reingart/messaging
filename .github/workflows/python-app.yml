@@ -42,11 +42,11 @@ jobs:
     - name: Test MQTT async
       run: python mqtt_async.py
 
-    - name: Test AMQP sync
-      run: python amqp_sync.py
-
     - name: wait the subscriber
       run: while ! wc -l /tmp/msg_log.txt  | grep 200000 ; do sleep 1 ; done
+
+    - name: Test AMQP sync
+      run: python amqp_sync.py
 
     - uses: actions/upload-artifact@v2
       with:
