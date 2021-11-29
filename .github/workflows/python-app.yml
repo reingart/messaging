@@ -17,8 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: install MQTT broker
-      run: sudo apt-get install mosquitto mosquitto-clients libmosquitto-dev
+    - name: install MQTT & AMQP brokers
+      run: sudo apt-get install -y mosquitto mosquitto-clients libmosquitto-dev rabbitmq-server
     - name: configure broker
       run: sudo cp mosquitto.conf /etc/mosquitto/conf.d/
     - name: restart broker
@@ -41,6 +41,9 @@ jobs:
       run: python mqtt_sync.py
     - name: Test MQTT async
       run: python mqtt_async.py
+
+    - name: Test AMQP sync
+      run: python amqp_sync.py
 
     - name: wait the subscriber
       run: while ! wc -l /tmp/msg_log.txt  | grep 200000 ; do sleep 1 ; done
