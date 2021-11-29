@@ -11,7 +11,7 @@ connection = pika.BlockingConnection(
     pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='', exchange_type='fanout')
+channel.exchange_declare(exchange='test', exchange_type='fanout')
 
 channel.basic_qos(prefetch_count=1)
 
@@ -26,7 +26,7 @@ start = time.time()
 count = 0
 
 for i in range(X):
-    ack = channel.basic_publish(exchange="", routing_key=Q, body=message,
+    ack = channel.basic_publish(exchange="test", routing_key=Q, body=message,
                                 properties=pika.BasicProperties(delivery_mode=2) # make message persistent
                                )
     if not ack:
